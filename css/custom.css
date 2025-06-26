@@ -1,4 +1,8 @@
-/* ===== 1. 全局渐变色背景 ===== */
+/* ===== 1. 全局渐变色背景（覆盖主题配置） ===== */
+body {
+  background: transparent !important; /* 关键：清除主题原有背景 */
+}
+
 body::before {
   content: "";
   position: fixed;
@@ -8,15 +12,19 @@ body::before {
   height: 100%;
   z-index: -1;
   
-  /* 柔和水彩渐变背景 */
+  /* 柔和的水彩渐变背景 */
   background: linear-gradient(135deg, 
-    #e0f7fa 0%, 
-    #f3e5f5 30%, 
-    #e8f5e9 70%, 
-    #fffde7 100%);
+    #f5f7fa 0%,     /* 极浅蓝 */
+    #e4e7ff 25%,    /* 淡紫 */
+    #e0fdfd 50%,    /* 淡青 */
+    #f9f7fd 75%,    /* 淡白紫 */
+    #fdf2f8 100%   /* 淡粉 */
+  );
   
-  /* 添加细腻纹理 */
-  background-image: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.3) 0%, transparent 20%);
+  /* 添加细腻纹理增强质感 */
+  background-image: 
+    radial-gradient(circle at 15% 30%, rgba(255,255,255,0.4) 0%, transparent 25%),
+    radial-gradient(circle at 85% 70%, rgba(255,255,255,0.3) 0%, transparent 25%);
 }
 
 /* ===== 2. 卡片基础样式 ===== */
@@ -24,41 +32,56 @@ body::before {
 .recent-post-item,
 .layout_post>#post,
 .layout_page>div:first-child {
-  background: rgba(255, 255, 255, 0.7) !important;
-  backdrop-filter: blur(12px) saturate(180%) !important;
-  border-radius: 12px !important;
-  border: 1px solid rgba(255,255,255,0.4) !important;
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(10px) saturate(180%) !important;
+  border-radius: 14px !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
   box-shadow: 
-    0 4px 20px rgba(0, 0, 0, 0.05),
-    inset 0 0 15px rgba(255,255,255,0.5) !important;
-  transition: all 0.4s ease !important;
+    0 5px 25px rgba(0, 0, 0, 0.05),
+    inset 0 0 15px rgba(255, 255, 255, 0.6) !important;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
 }
 
-/* ===== 3. 卡片悬停效果 ===== */
+/* ===== 3. 卡片悬停效果（透明度增加+上浮） ===== */
 .card-widget:hover,
 .recent-post-item:hover,
 .layout_post>#post:hover {
-  background: rgba(255, 255, 255, 0.85) !important;
-  transform: translateY(-3px) !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  transform: translateY(-5px) scale(1.005) !important;
   box-shadow: 
-    0 8px 30px rgba(0, 0, 0, 0.1),
-    inset 0 0 20px rgba(255,255,255,0.8) !important;
+    0 12px 35px rgba(0, 0, 0, 0.1),
+    inset 0 0 25px rgba(255, 255, 255, 0.8) !important;
 }
 
-/* ===== 4. 删除页脚 ===== */
-#footer {
+/* ===== 4. 完全删除页脚 ===== */
+#footer, #footer-wrap, #footer:before {
   display: none !important;
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
-/* ===== 5. 文字内容优化 ===== */
+/* ===== 5. 文字内容优化（提高可读性） ===== */
 .post-content {
-  color: #333; /* 深灰色文字提高可读性 */
-  line-height: 1.8; /* 增加行距 */
+  color: #333 !important; 
+  line-height: 1.85 !important;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.7) !important;
+}
+
+.post-title {
+  color: #2c3e50 !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
 }
 
 /* ===== 6. 移动端优化 ===== */
 @media (max-width: 768px) {
   .card-widget {
-    backdrop-filter: blur(8px) !important; /* 降低移动端模糊强度 */
+    backdrop-filter: blur(6px) !important;
+    margin: 10px 5px !important;
+  }
+  
+  body::before {
+    /* 简化移动端背景提升性能 */
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e7ff 100%) !important;
   }
 }
