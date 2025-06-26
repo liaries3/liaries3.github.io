@@ -1,13 +1,20 @@
-#recent-posts>.recent-post-item,.layout_page>div:first-child:not(.recent-posts),.layout_post>#page,.layout_post>#post,.read-mode .layout_post>#post {
-  background: var(--light_bg_color)
+/* 修改后的CSS */
+#recent-posts > .recent-post-item,
+.layout_page > div:first-child:not(.recent-posts),
+.layout_post > #page,
+.layout_post > #post,
+.read-mode .layout_post > #post,
+#aside-content .card-widget {  /* 添加毛玻璃效果 */
+  background: rgba(255, 255, 255, 0.82) !important; /* 半透明白底 */
+  backdrop-filter: blur(8px) !important; /* 毛玻璃效果 */
+  border-radius: 12px !important; /* 圆角效果 */
 }
 
-#aside-content .card-widget {
-  background: var(--light_bg_color)
-}
-
-#web_bg {
-  background: linear-gradient(90deg,rgba(247,149,51,.1),rgba(243,112,85,.1) 15%,rgba(239,78,123,.1) 30%,rgba(161,102,171,.1) 44%,rgba(80,115,184,.1) 58%,rgba(16,152,173,.1) 72%,rgba(7,179,155,.1) 86%,rgba(109,186,130,.1))
+/* 新增的article-card样式（如需要单独添加） */
+.article-card {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
 }
 
 #footer {
