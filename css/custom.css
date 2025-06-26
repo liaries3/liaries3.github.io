@@ -1,13 +1,64 @@
-/* 添加毛玻璃效果到指定区域 */
-#recent-posts > .recent-post-item,
-.layout_page > div:first-child:not(.recent-posts),
-.layout_post > #page,
-.layout_post > #post,
-.read-mode .layout_post > #post,
-#aside-content .card-widget,
-.article-card {  /* 新增的类名 */
-  background: rgba(255, 255, 255, 0.82) !important; /* 半透明白色背景 */
-  backdrop-filter: blur(8px) !important;    /* 毛玻璃模糊效果 */
-  border-radius: 12px !important;           /* 圆角效果 */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important; /* 可选：添加轻微阴影增强立体感 */
+/* ===== 1. 全局渐变色背景 ===== */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  
+  /* 柔和水彩渐变背景 */
+  background: linear-gradient(135deg, 
+    #e0f7fa 0%, 
+    #f3e5f5 30%, 
+    #e8f5e9 70%, 
+    #fffde7 100%);
+  
+  /* 添加细腻纹理 */
+  background-image: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.3) 0%, transparent 20%);
+}
+
+/* ===== 2. 卡片基础样式 ===== */
+.card-widget,
+.recent-post-item,
+.layout_post>#post,
+.layout_page>div:first-child {
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(12px) saturate(180%) !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255,255,255,0.4) !important;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.05),
+    inset 0 0 15px rgba(255,255,255,0.5) !important;
+  transition: all 0.4s ease !important;
+}
+
+/* ===== 3. 卡片悬停效果 ===== */
+.card-widget:hover,
+.recent-post-item:hover,
+.layout_post>#post:hover {
+  background: rgba(255, 255, 255, 0.85) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 
+    0 8px 30px rgba(0, 0, 0, 0.1),
+    inset 0 0 20px rgba(255,255,255,0.8) !important;
+}
+
+/* ===== 4. 删除页脚 ===== */
+#footer {
+  display: none !important;
+}
+
+/* ===== 5. 文字内容优化 ===== */
+.post-content {
+  color: #333; /* 深灰色文字提高可读性 */
+  line-height: 1.8; /* 增加行距 */
+}
+
+/* ===== 6. 移动端优化 ===== */
+@media (max-width: 768px) {
+  .card-widget {
+    backdrop-filter: blur(8px) !important; /* 降低移动端模糊强度 */
+  }
 }
