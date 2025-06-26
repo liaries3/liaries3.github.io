@@ -1,33 +1,20 @@
-/* ===== 1. 增强型全局渐变背景 ===== */
-body {
-  background: transparent !important;
-  overflow-x: hidden;
-}
-
+/* ===== 1. 增强PC端背景对比度 ===== */
 body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  
-  /* 增强对比度的柔和渐变 */
+  /* 增强对比度的渐变背景 */
   background: linear-gradient(135deg, 
-    #e3f2fd 0%,    /* 淡蓝 */
-    #f3e5f5 20%,   /* 淡紫 */
-    #e8f5e9 45%,   /* 淡绿 */
-    #fffde7 70%,   /* 淡黄 */
-    #ffebee 100%   /* 淡粉 */
-  );
+    #d1e8ff 0%,    /* 更明显的淡蓝 */
+    #e8dbf7 25%,   /* 更明显的淡紫 */
+    #d9f5d9 50%,   /* 更明显的淡绿 */
+    #fff7d9 75%,   /* 更明显的淡黄 */
+    #ffdde5 100%   /* 更明显的淡粉 */
+  ) !important;
   
-  /* 添加微妙的动态效果 */
+  /* 去除纹理 */
+  background-image: none !important;
+  
+  /* 增强背景动态效果 */
   background-size: 200% 200%;
-  animation: GradientFlow 15s ease infinite;
-  
-  /* 添加细腻的纹理 */
-  opacity: 0.95;
+  animation: GradientFlow 20s ease infinite;
 }
 
 @keyframes GradientFlow {
@@ -36,166 +23,113 @@ body::before {
   100% { background-position: 0% 50% }
 }
 
-/* 添加磨砂纹理层 */
-body::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.15;
-  pointer-events: none;
+/* ===== 2. 顶部导航栏优化 ===== */
+#nav {
+  background: transparent !important; /* 去除白色背景 */
+  backdrop-filter: blur(8px) !important; /* 添加毛玻璃效果 */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important; /* 添加底部细线 */
+  padding: 15px 0 !important;
+  display: flex;
+  justify-content: center !important; /* 居中导航栏内容 */
 }
 
-/* ===== 2. 增强卡片效果（PC端更明显） ===== */
-.card-widget,
-.recent-post-item,
-.layout_post>#post,
-.layout_page>div:first-child {
-  background: rgba(255, 255, 255, 0.82) !important;
-  backdrop-filter: blur(14px) saturate(180%) !important;
-  border-radius: 16px !important;
-  border: 1px solid rgba(255, 255, 255, 0.6) !important;
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.08),
-    inset 0 0 20px rgba(255, 255, 255, 0.7) !important;
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
-  
-  /* 添加微妙的内部光晕 */
-  position: relative;
-  overflow: hidden;
+#nav .menus_items {
+  display: flex;
+  justify-content: center !important;
+  width: auto;
 }
 
-/* 卡片边缘光效 */
-.card-widget::before,
-.recent-post-item::before,
-.layout_post>#post::before {
-  content: "";
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  border-radius: 18px;
-  background: linear-gradient(45deg, 
-    rgba(255,255,255,0.5), 
-    rgba(255,255,255,0.2), 
-    transparent);
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* ===== 3. 增强悬停效果 ===== */
-.card-widget:hover,
-.recent-post-item:hover,
-.layout_post>#post:hover {
-  background: rgba(255, 255, 255, 0.92) !important;
-  transform: translateY(-6px) scale(1.01) !important;
-  box-shadow: 
-    0 15px 45px rgba(0, 0, 0, 0.12),
-    inset 0 0 30px rgba(255, 255, 255, 0.85) !important;
-}
-
-/* 悬停时边缘光效增强 */
-.card-widget:hover::before,
-.recent-post-item:hover::before,
-.layout_post>#post:hover::before {
-  background: linear-gradient(45deg, 
-    rgba(255,255,255,0.7), 
-    rgba(255,255,255,0.4), 
-    transparent);
-}
-
-/* ===== 4. 优雅的标题动画 ===== */
-.post-title {
-  position: relative;
-  display: inline-block;
+#nav .site-page {
+  margin: 0 18px !important; /* 增加菜单项间距 */
+  font-weight: 500;
+  color: #333 !important;
   transition: all 0.3s ease;
+  position: relative;
 }
 
-.post-title::after {
+#nav .site-page::after {
   content: "";
   position: absolute;
   bottom: -5px;
   left: 0;
-  width: 100%;
+  width: 0;
   height: 2px;
   background: linear-gradient(90deg, #4fc3f7, #9575cd);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s ease;
+  transition: width 0.3s ease;
 }
 
-.post-title:hover {
-  transform: translateY(-2px);
+#nav .site-page:hover {
+  color: #4a6fa8 !important;
 }
 
-.post-title:hover::after {
-  transform: scaleX(1);
+#nav .site-page:hover::after {
+  width: 100%;
 }
 
-/* ===== 5. 文字内容优化 ===== */
-.post-content {
-  color: #333 !important;
-  line-height: 1.9 !important;
-  letter-spacing: 0.03em;
-  text-shadow: 0 1px 1px rgba(255,255,255,0.8);
-  font-weight: 400;
+#nav .site-name {
+  display: none; /* 隐藏站点名称（如果需要保留可调整位置） */
 }
 
-/* ===== 6. 完全隐藏页脚 ===== */
-#footer, #footer-wrap, #footer:before {
-  display: none !important;
-  height: 0 !important;
+/* ===== 3. 卡片增强效果 ===== */
+.card-widget,
+.recent-post-item,
+.layout_post>#post,
+.layout_page>div:first-child {
+  background: rgba(255, 255, 255, 0.78) !important;
+  border: 1px solid rgba(255, 255, 255, 0.65) !important;
+  box-shadow: 
+    0 10px 35px rgba(0, 0, 0, 0.1),
+    inset 0 0 25px rgba(255, 255, 255, 0.75) !important;
+}
+
+/* ===== 4. 文章列表优化 ===== */
+#recent-posts .recent-post-item {
+  margin-bottom: 25px !important;
+  padding: 20px !important;
+}
+
+.recent-post-info .article-title {
+  font-size: 1.4rem !important;
+  margin-bottom: 10px !important;
+}
+
+.recent-post-info .article-meta-wrap {
+  opacity: 0.8;
+  font-size: 0.9rem;
+}
+
+/* ===== 5. 侧边栏优化 ===== */
+#aside_content .card-widget {
+  padding: 20px !important;
+  margin-bottom: 25px !important;
+}
+
+.card-widget .card-content {
   padding: 0 !important;
-  margin: 0 !important;
 }
 
-/* ===== 7. 移动端专属优化 ===== */
+/* ===== 6. 页脚完全隐藏 ===== */
+#footer, #footer-wrap {
+  display: none !important;
+}
+
+/* ===== 7. 移动端优化 ===== */
 @media (max-width: 768px) {
   body::before {
-    /* 增强移动端渐变对比度 */
     background: linear-gradient(135deg, 
-      #e3f2fd 0%, 
-      #f3e5f5 30%, 
-      #fffde7 70%, 
-      #ffebee 100%) !important;
-    animation: none; /* 移动端禁用动画提升性能 */
+      #d1e8ff 0%, 
+      #e8dbf7 30%, 
+      #fff7d9 70%, 
+      #ffdde5 100%) !important;
   }
   
-  .card-widget,
-  .recent-post-item {
-    backdrop-filter: blur(10px) !important;
-    margin: 12px 0 !important;
-    border-radius: 14px !important;
+  #nav .menus_items {
+    flex-wrap: wrap;
+    justify-content: center !important;
   }
   
-  /* 移动端悬停效果简化 */
-  .card-widget:hover,
-  .recent-post-item:hover {
-    transform: translateY(-3px) !important;
+  #nav .site-page {
+    margin: 0 12px !important;
+    padding: 8px 0;
   }
-}
-
-/* ===== 8. 夜间模式适配 ===== */
-[data-theme="dark"] body::before {
-  background: linear-gradient(135deg, 
-    #1a237e 0%, 
-    #4527a0 25%, 
-    #311b92 50%, 
-    #4a148c 75%, 
-    #12005e 100%) !important;
-}
-
-[data-theme="dark"] .card-widget {
-  background: rgba(30, 30, 40, 0.75) !important;
-  border: 1px solid rgba(100, 100, 150, 0.35) !important;
-}
-
-[data-theme="dark"] .post-content {
-  color: #e0e0e0 !important;
-  text-shadow: 0 1px 1px rgba(0,0,0,0.3);
 }
